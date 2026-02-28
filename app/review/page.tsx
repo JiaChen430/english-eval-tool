@@ -8,6 +8,7 @@ import {
   FillInBlankExercise,
   MultipleChoiceExercise,
 } from '@/lib/types';
+import { getNickname } from '@/lib/user';
 
 const CATEGORY_STYLES: Record<ErrorCategory, { label: string; bg: string; text: string }> = {
   grammar: { label: 'Grammar', bg: 'bg-blue-50', text: 'text-blue-700' },
@@ -39,18 +40,31 @@ export default function ReviewPage() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    fetch('/api/notebook?mastered=false')
-      .then((r) => r.json())
-      .then((d) => setEntries(d.entries || []))
-      .catch(() => setEntries([]))
-      .finally(() => setLoading(false));
+    try {
+      const nickname = getNickname();
+      if (!nickname) {
+        setEntries([]);
+        setLoading(false);
+        return;
+      }
+
+      const notebookKey = `ee_notebook_${nickname}`;
+      const raw = localStorage.getItem(notebookKey);
+      const notebook: NotebookEntry[] = raw ? JSON.parse(raw) : [];
+      const unmastered = notebook.filter((e) => !e.mastered);
+      setEntries(unmastered);
+    } catch {
+      setEntries([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   function setAnswer(id: string, value: string | number) {
     setAnswers((prev) => ({ ...prev, [id]: value }));
   }
 
-  async function handleSubmit() {
+  function handleSubmit() {
     const newResults: Record<string, boolean> = {};
     for (const entry of entries) {
       newResults[entry.id] = checkAnswer(entry, answers[entry.id]);
@@ -62,24 +76,29 @@ export default function ReviewPage() {
     const total = entries.length;
     const score = total > 0 ? correct / total : 0;
 
-    // Update attempt counts; mark mastered for entries the user got right (if overall >= 70%)
+    // Update localStorage: mark mastered for correct entries if overall >= 70%
     setUpdating(true);
     try {
-      await Promise.all(
-        entries.map((entry) => {
-          const isCorrect = newResults[entry.id];
-          return fetch(`/api/notebook/${entry.id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              attempt_count: entry.attempt_count + 1,
-              last_attempted_at: new Date().toISOString(),
-              // Mark mastered if they got this one right and overall passed
-              ...(isCorrect && score >= 0.7 ? { mastered: true } : {}),
-            }),
-          });
-        }),
-      );
+      const nickname = getNickname();
+      if (!nickname) throw new Error('No nickname');
+
+      const notebookKey = `ee_notebook_${nickname}`;
+      const raw = localStorage.getItem(notebookKey);
+      const notebook: NotebookEntry[] = raw ? JSON.parse(raw) : [];
+
+      const updated = notebook.map((entry) => {
+        const isCorrect = newResults[entry.id];
+        if (isCorrect === undefined) return entry;
+
+        return {
+          ...entry,
+          attempt_count: (entry.attempt_count || 0) + 1,
+          last_attempted_at: new Date().toISOString(),
+          mastered: isCorrect && score >= 0.7 ? true : entry.mastered,
+        };
+      });
+
+      localStorage.setItem(notebookKey, JSON.stringify(updated));
     } catch {
       // Non-blocking
     } finally {

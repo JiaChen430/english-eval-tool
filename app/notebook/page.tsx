@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { NotebookEntry, ErrorCategory } from '@/lib/types';
+import { getNickname } from '@/lib/user';
 
 const CATEGORY_STYLES: Record<ErrorCategory, { label: string; bg: string; text: string; border: string }> = {
   grammar: { label: 'Grammar', bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
@@ -25,13 +26,32 @@ export default function NotebookPage() {
   const [filter, setFilter] = useState<'all' | 'active' | 'mastered'>('all');
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  const fetchEntries = useCallback(async () => {
+  const fetchEntries = useCallback(() => {
     setLoading(true);
     try {
-      const params = filter === 'active' ? '?mastered=false' : filter === 'mastered' ? '?mastered=true' : '';
-      const res = await fetch(`/api/notebook${params}`);
-      const data = await res.json();
-      setEntries(data.entries || []);
+      const nickname = getNickname();
+      if (!nickname) {
+        setEntries([]);
+        setLoading(false);
+        return;
+      }
+
+      const notebookKey = `ee_notebook_${nickname}`;
+      const raw = localStorage.getItem(notebookKey);
+      const allEntries: NotebookEntry[] = raw ? JSON.parse(raw) : [];
+
+      // Apply filter
+      let filtered = allEntries;
+      if (filter === 'active') {
+        filtered = allEntries.filter((e) => !e.mastered);
+      } else if (filter === 'mastered') {
+        filtered = allEntries.filter((e) => e.mastered);
+      }
+
+      // Sort by createdAt descending
+      filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+      setEntries(filtered);
     } catch {
       setEntries([]);
     } finally {
@@ -43,11 +63,20 @@ export default function NotebookPage() {
     fetchEntries();
   }, [fetchEntries]);
 
-  async function handleDelete(id: string) {
+  function handleDelete(id: string) {
     if (!confirm('Remove this entry from your notebook?')) return;
     setDeletingId(id);
     try {
-      await fetch(`/api/notebook/${id}`, { method: 'DELETE' });
+      const nickname = getNickname();
+      if (!nickname) throw new Error('No nickname');
+
+      const notebookKey = `ee_notebook_${nickname}`;
+      const raw = localStorage.getItem(notebookKey);
+      const notebook: NotebookEntry[] = raw ? JSON.parse(raw) : [];
+
+      const updated = notebook.filter((e) => e.id !== id);
+      localStorage.setItem(notebookKey, JSON.stringify(updated));
+
       setEntries((prev) => prev.filter((e) => e.id !== id));
     } catch {
       alert('Failed to delete entry.');
@@ -56,15 +85,21 @@ export default function NotebookPage() {
     }
   }
 
-  async function handleToggleMastered(entry: NotebookEntry) {
+  function handleToggleMastered(entry: NotebookEntry) {
     try {
-      const res = await fetch(`/api/notebook/${entry.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mastered: !entry.mastered }),
-      });
-      const data = await res.json();
-      setEntries((prev) => prev.map((e) => (e.id === entry.id ? data.entry : e)));
+      const nickname = getNickname();
+      if (!nickname) throw new Error('No nickname');
+
+      const notebookKey = `ee_notebook_${nickname}`;
+      const raw = localStorage.getItem(notebookKey);
+      const notebook: NotebookEntry[] = raw ? JSON.parse(raw) : [];
+
+      const updated = notebook.map((e) =>
+        e.id === entry.id ? { ...e, mastered: !e.mastered } : e
+      );
+      localStorage.setItem(notebookKey, JSON.stringify(updated));
+
+      setEntries((prev) => prev.map((e) => (e.id === entry.id ? { ...e, mastered: !e.mastered } : e)));
     } catch {
       alert('Failed to update entry.');
     }

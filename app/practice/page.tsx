@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ExerciseItem, ErrorCategory, FillInBlankExercise, MultipleChoiceExercise } from '@/lib/types';
+import { getNickname } from '@/lib/user';
 
 const CATEGORY_STYLES: Record<ErrorCategory, { label: string; bg: string; text: string }> = {
   grammar: { label: 'Grammar', bg: 'bg-blue-50', text: 'text-blue-700' },
@@ -183,7 +184,7 @@ export default function PracticePage() {
     setAnswers((prev) => ({ ...prev, [errorId]: value }));
   }
 
-  async function handleSubmit() {
+  function handleSubmit() {
     const newResults: Record<string, boolean> = {};
     for (const item of exercises) {
       newResults[item.errorId] = checkAnswer(item, answers[item.errorId]);
@@ -191,16 +192,31 @@ export default function PracticePage() {
     setResults(newResults);
     setSubmitted(true);
 
-    // Save failed exercises to notebook
+    // Save failed exercises to notebook (localStorage, per nickname)
     const failed = exercises.filter((item) => !newResults[item.errorId]);
     if (failed.length > 0) {
       setSaving(true);
       try {
-        await fetch('/api/notebook', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ originalText, correctedText, failedExercises: failed }),
-        });
+        const nickname = getNickname();
+        if (!nickname) throw new Error('No nickname found');
+
+        const notebookKey = `ee_notebook_${nickname}`;
+        const existing = localStorage.getItem(notebookKey);
+        const notebook = existing ? JSON.parse(existing) : [];
+
+        // Add new failed exercises
+        const newEntries = failed.map((item) => ({
+          id: `${Date.now()}_${Math.random()}`,
+          originalText,
+          correctedText,
+          error: item.error,
+          exercise: item.exercise,
+          createdAt: new Date().toISOString(),
+          mastered: false,
+        }));
+
+        notebook.push(...newEntries);
+        localStorage.setItem(notebookKey, JSON.stringify(notebook));
         setSaved(true);
       } catch {
         // Non-blocking — still show results
