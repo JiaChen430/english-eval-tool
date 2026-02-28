@@ -207,11 +207,17 @@ export default function PracticePage() {
         // Add new failed exercises
         const newEntries = failed.map((item) => ({
           id: `${Date.now()}_${Math.random()}`,
-          originalText,
-          correctedText,
-          error: item.error,
-          exercise: item.exercise,
-          createdAt: new Date().toISOString(),
+          created_at: new Date().toISOString(),
+          original_text: originalText,
+          corrected_text: correctedText,
+          error_category: item.error.category,
+          error_description: item.error.explanation,
+          error_original: item.error.original,
+          error_corrected: item.error.corrected,
+          exercise_type: item.exercise.type,
+          exercise_data: item.exercise,
+          attempt_count: 0,
+          last_attempted_at: null,
           mastered: false,
         }));
 

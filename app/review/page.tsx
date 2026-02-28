@@ -224,7 +224,7 @@ export default function ReviewPage() {
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-slate-400 text-sm font-medium">#{idx + 1}</span>
                 <span className={`badge ${style.bg} ${style.text}`}>{style.label}</span>
-                {entry.attempt_count > 0 && (
+                {entry.attempt_count && entry.attempt_count > 0 && (
                   <span className="text-xs text-slate-400">
                     Attempted {entry.attempt_count}×
                   </span>

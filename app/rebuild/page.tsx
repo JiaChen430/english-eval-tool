@@ -109,7 +109,7 @@ export default function RebuildPage() {
   }
 
   const latestScore = attempts.length > 0 ? attempts[attempts.length - 1].evaluation?.score : null;
-  const hasReached90 = latestScore !== null && latestScore >= 90;
+  const hasReached90 = latestScore !== null && latestScore !== undefined && latestScore >= 90;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10">

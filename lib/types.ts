@@ -46,7 +46,7 @@ export interface EvaluateResponse {
 export interface NotebookEntry {
   id: string;
   created_at: string;
-  updated_at: string;
+  updated_at?: string;
   original_text: string;
   corrected_text: string;
   error_category: ErrorCategory;
@@ -55,7 +55,7 @@ export interface NotebookEntry {
   error_corrected: string;
   exercise_type: ExerciseType;
   exercise_data: Exercise;
-  attempt_count: number;
-  last_attempted_at: string | null;
+  attempt_count?: number;
+  last_attempted_at?: string | null;
   mastered: boolean;
 }

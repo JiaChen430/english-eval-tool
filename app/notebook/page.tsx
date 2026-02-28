@@ -48,8 +48,8 @@ export default function NotebookPage() {
         filtered = allEntries.filter((e) => e.mastered);
       }
 
-      // Sort by createdAt descending
-      filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      // Sort by created_at descending
+      filtered.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
       setEntries(filtered);
     } catch {
@@ -217,7 +217,7 @@ export default function NotebookPage() {
                     </details>
 
                     {/* Attempt count */}
-                    {entry.attempt_count > 0 && (
+                    {entry.attempt_count && entry.attempt_count > 0 && (
                       <p className="text-xs text-slate-400 mt-2">
                         Reviewed {entry.attempt_count} time{entry.attempt_count !== 1 ? 's' : ''}
                       </p>
