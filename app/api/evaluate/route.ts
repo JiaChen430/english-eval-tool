@@ -50,7 +50,9 @@ Examples of making it more natural:
 - "How about I call..." → "I'll call..." (more direct American style)
 - "I will call" → "I'll call" (contractions are more natural)
 
-RULE: Even if grammar is 100% correct, if there's a more natural American way to say it, mark it as "naturalness" category with a score below 90.
+RULE: Only include errors in the "errors" array if they ACTUALLY need to be changed. If a phrase is already natural and correct, DO NOT include it - even if you suggested an alternative.
+- Wrong: {"original": "make the next payment", "explanation": "This is perfectly acceptable, no change needed"}
+- Correct: Don't include it in the errors array at all
 Return ONLY valid JSON.`;
 
 const EXERCISE_PROMPT = (errors: TextError[]) => `You are an English language teaching assistant. For each error below, create ONE practice exercise. Alternate between "fill-in-blank" and "multiple-choice" types.
