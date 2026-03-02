@@ -14,36 +14,43 @@ function extractJSON(text: string): string {
   return text.trim();
 }
 
-const EVAL_PROMPT = (text: string) => `You are an expert English language evaluator. Evaluate the following English text and return ONLY a JSON object — no markdown, no commentary.
+const EVAL_PROMPT = (text: string) => `You are an expert English language evaluator specializing in helping Chinese speakers improve their English to sound more NATURAL and like a native North American speaker. Evaluate the following English text and return ONLY a JSON object — no markdown, no commentary.
 
 Text to evaluate:
 """
 ${text}
 """
 
+IMPORTANT: Your PRIMARY focus should be on NATURALNESS - even if grammar is correct, suggest more natural expressions that Americans would actually use in daily conversation.
+
 Return this exact JSON structure:
 {
   "score": <integer 0–100>,
-  "correctedText": "<full corrected version of the text>",
+  "correctedText": "<full corrected version - make it sound NATURAL and like native American English>",
   "errors": [
     {
       "id": "err1",
       "category": "<grammar|vocabulary|naturalness|punctuation>",
       "original": "<exact problematic word or phrase from the input>",
-      "corrected": "<corrected replacement>",
-      "explanation": "<clear, friendly explanation of the error in one or two sentences>"
+      "corrected": "<corrected replacement - use natural American expression>",
+      "explanation": "<explain why original is unnatural or incorrect, suggest American way of saying it>"
     }
   ]
 }
 
-Scoring guide:
-- 90–100: Near-perfect, native-level
-- 70–89: Good, minor issues
-- 50–69: Fair, several noticeable issues
-- 30–49: Poor, many errors
-- 0–29: Very poor, hard to understand
+Scoring guide (emphasize NATURALNESS):
+- 90–100: Natural native-level American English
+- 70–89: Understandable but not natural enough
+- 50–69: Correct but robotic/unnatural
+- Below 50: Hard to understand
 
-If the text has no errors, return an empty "errors" array and a score of 95–100.
+Examples of making it more natural:
+- "For the payment of March" → "the March payment" or "take care of the March payment"
+- "pay it" → "take care of it"
+- "How about I call..." → "I'll call..." (more direct American style)
+- "I will call" → "I'll call" (contractions are more natural)
+
+RULE: Even if grammar is 100% correct, if there's a more natural American way to say it, mark it as "naturalness" category with a score below 90.
 Return ONLY valid JSON.`;
 
 const EXERCISE_PROMPT = (errors: TextError[]) => `You are an English language teaching assistant. For each error below, create ONE practice exercise. Alternate between "fill-in-blank" and "multiple-choice" types.
