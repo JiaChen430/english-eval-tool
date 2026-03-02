@@ -1,0 +1,9 @@
+{
+  "1": "general",
+  "2": "english-eval",
+  "5": "meta",
+  "7": "life-manager",
+  "10": "agent-system",
+  "92": "autotrading",
+  "_comment": "Telegram forum topic ID to topic name mapping. Update this when new topics are created."
+}

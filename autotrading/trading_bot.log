@@ -1,0 +1,465 @@
+2026-02-28 20:56:28,759 [INFO] ==================================================
+2026-02-28 20:56:28,759 [INFO] Bitget Trading Bot - EMA Cross Strategy v5 (重写版)
+2026-02-28 20:56:28,759 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-02-28 20:56:28,759 [INFO] 目标名义仓位: 4000 USDT
+2026-02-28 20:56:28,759 [INFO] ✅ API密钥已加载
+2026-02-28 20:56:29,031 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772340988966, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-02-28 20:56:29,032 [INFO] ✅ 杠杆已设置为 20x
+2026-02-28 20:56:29,032 [INFO] Webhook监听地址: http://0.0.0.0:5001/webhook
+2026-02-28 20:56:29,032 [INFO] 状态查询地址:   http://0.0.0.0:5001/status
+2026-02-28 20:56:29,032 [INFO] 连接测试地址:   http://0.0.0.0:5001/test
+2026-02-28 20:56:29,032 [INFO] ==================================================
+2026-02-28 20:56:29,045 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-02-28 20:56:29,045 [INFO] [33mPress CTRL+C to quit[0m
+2026-02-28 21:05:37,362 [ERROR] 127.0.0.1 - - [28/Feb/2026 21:05:37] code 400, message Bad request version ('\x00+\x00\x07\x06\x9a\x9a\x03\x04\x03\x03\x00\x17\x00\x00\x00')
+2026-02-28 21:05:37,363 [ERROR] 127.0.0.1 - - [28/Feb/2026 21:05:37] code 400, message Bad request version ('¾p\x8aX\x8f¾')
+2026-02-28 21:05:37,364 [INFO] 127.0.0.1 - - [28/Feb/2026 21:05:37] "[31m[1m\x16\x03\x01\x06²\x01\x00\x06®\x03\x03}3ïæ05\x80\x89í\x96ô0¦~û\x08nN\x03f×q1«©¼&Ôàpã¬ \x1az6(ä\x1e-íóÐÅä£\x99K\x1e¾p\x8aX\x8f¾[0m" 400 -
+2026-02-28 21:05:37,363 [INFO] 127.0.0.1 - - [28/Feb/2026 21:05:37] "[31m[1m\x16\x03\x01\x06²\x01\x00\x06®\x03\x03ÝT%ì\x0eÀ¦Ç\x94\x83\x92\x80\x19\x85\x94dØmâ;ÇÙiQfÑ~[EÑ%u ÄX\x0f\x89\x9aó\x01n3$âË\x9aåy´7Ëé$¼Äc×\x82\x9a\x878¼^z¯\x00 \x1a\x1a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06E::\x00\x00ÿ\x01\x00\x01\x00þ\x0d\x00º\x00\x00\x01\x00\x01Ù\x00 \x14ñì\x88Mz²\x04\x93ÚÎ\x99\x8aÖ\x88DáêùÊñ\x95ñ\x0dðc©\x18\x07¬E\x12\x00\x90TN&æeGª8.¸\x09\x80\x08ìïÂçÎ2\x08\x84Ï\x880vxÝg[\x8b\x09àÿ;\x83[zà¥¢÷ÿ6\x7fýÞ\x8bC×}Í/1ð\x0c$\x96×E3Ç\x10çÉ\x1a1\x84\x13ñW{õtÁ+vúÜFðÝK>§\x0c;9HÜ¨õ\x1dP'Ë\x8d\x9f³\x0b\x90uì³ÿ¡È\x09»úõÛ\x9eq­Xü\x85l6\x07i\x18¼í\x04©Þý\x92\x0bt·Â'¾Z\x9b\x0e=ªÝìw\x0d\x00+\x00\x07\x06\x9a\x9a\x03\x04\x03\x03\x00\x17\x00\x00\x00[0m" 400 -
+2026-02-28 21:05:37,365 [ERROR] 127.0.0.1 - - [28/Feb/2026 21:05:37] code 400, message Bad request version ('F\x96â¾Á')
+2026-02-28 21:05:37,365 [INFO] 127.0.0.1 - - [28/Feb/2026 21:05:37] "[31m[1m\x16\x03\x01\x07\x12\x01\x00\x07\x0e\x03\x03}NPý\x06\x94J\x9aC´¢\x01¢a\x10\x94ÿD\x0d\x17`­¬ÉÚ·=ß^_d\x05 F\x96â¾Á [0m" 400 -
+2026-02-28 21:05:37,365 [ERROR] 127.0.0.1 - - [28/Feb/2026 21:05:37] code 400, message Bad request version ('\x02h2\x08http/1.1\x00#\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00')
+2026-02-28 21:05:37,366 [INFO] 127.0.0.1 - - [28/Feb/2026 21:05:37] "[31m[1m\x16\x03\x01\x06²\x01\x00\x06®\x03\x03$j©\x1eö_ÛUe\x8b½\x13ßF{d\x85ö\x08Ä\x0fNÝ¾qU¹i¿r\x850 2o\x05-\x08g\x0eÛZ¸\x84k×yì`»ó\x90Ñ \x9c9è \x0bÐ\x16àF:\x90\x00 ZZ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06E\x9a\x9a\x00\x00\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00\x1b\x00\x03\x02\x00\x02\x00-\x00\x02\x01\x01\x00\x17\x00\x00\x00\x12\x00\x00\x00\x0b\x00\x02\x01\x00ÿ\x01\x00\x01\x00þ\x0d\x00º\x00\x00\x01\x00\x01è\x00 z\x07\x13\x1c8\x1aS\x98ËÔ\x0bº\x9e\x7fb\x0c\x16Dkè+w\x14Ð\x90\x1e×.·cð$\x00\x90:ºÂ¼ûÎ¥\x85½¢l`îÊ\x98p\x95òÝ\x87Q¤»\x0f6\x13\x990g7\x15¢zvÖumÎÿ\x1d\x08~z\x0fÑ\x0d!ôÎ\x89wÐ«2çãÄ\x120÷þ|à\x99W\x96Dðúqa¹ç=ÂÁ\x00$·%\x9fU\x17Â\x9eób\x06\x97.MÿÍ8}µ\x04Ë4zIÈ9ï\x09\x02lmF®Õd\x81UûAð\x09ßî*$ó4\x85¥AÜIÕå¾\x87CF<£\x01v{Cä8f\x00\x10\x00\x0e\x00\x0c\x02h2\x08http/1.1\x00#\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00[0m" 400 -
+2026-02-28 21:06:42,673 [INFO] 127.0.0.1 - - [28/Feb/2026 21:06:42] "GET /test HTTP/1.1" 200 -
+2026-02-28 21:06:42,696 [INFO] 127.0.0.1 - - [28/Feb/2026 21:06:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-28 21:16:58,782 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-02-28 21:16:58,946 [INFO] BTC价格: 67359.69 USDT
+2026-02-28 21:16:58,947 [INFO] 计划下单数量: 0.059 BTC (名义仓位 4000 USDT @ 67359.69)
+2026-02-28 21:16:59,154 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-02-28 21:16:59,300 [INFO] BTC价格: 67359.69 USDT
+2026-02-28 21:16:59,302 [INFO] 127.0.0.1 - - [28/Feb/2026 21:16:59] "GET /status HTTP/1.1" 200 -
+2026-02-28 21:20:51,148 [INFO] ==================================================
+2026-02-28 21:20:51,149 [INFO] 收到Webhook | Content-Type: application/json
+2026-02-28 21:20:51,149 [INFO] Raw Body: b'{\\signal\\: \\\xe5\xbf\xab\xe9\x80\x9f\xe5\x81\x9a\xe5\xa4\x9a\\}'
+2026-02-28 21:20:51,150 [INFO] 解析到信号: 「{\signal\: \快速做多\}」
+2026-02-28 21:20:51,150 [INFO] 执行操作: open long
+2026-02-28 21:20:51,657 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-02-28 21:20:51,824 [INFO] BTC价格: 67513.08 USDT
+2026-02-28 21:20:51,825 [INFO] 计划下单数量: 0.059 BTC (名义仓位 4000 USDT @ 67513.08)
+2026-02-28 21:20:51,825 [INFO] 📈 开long仓: 0.059 BTC
+2026-02-28 21:20:52,031 [INFO] 开仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772342451962, 'data': {'clientOid': '1411872063672176640', 'orderId': '1411872063651205121'}}
+2026-02-28 21:20:52,032 [INFO] 127.0.0.1 - - [28/Feb/2026 21:20:52] "POST /webhook HTTP/1.1" 200 -
+2026-02-28 21:22:00,796 [INFO] ==================================================
+2026-02-28 21:22:00,796 [INFO] 收到Webhook | Content-Type: application/json; charset=utf-8
+2026-02-28 21:22:00,797 [INFO] Raw Body: b'{"signal": "\xe5\xbf\xab\xe9\x80\x9f\xe5\x81\x9a\xe5\xa4\x9a"}'
+2026-02-28 21:22:00,797 [INFO] 解析到信号: 「快速做多」
+2026-02-28 21:22:00,797 [INFO] 执行操作: open long
+2026-02-28 21:22:00,998 [INFO] 当前持仓 → 多: 0.059 BTC, 空: 0.0 BTC
+2026-02-28 21:22:00,998 [INFO] 已有long仓 0.059 BTC，跳过重复开仓
+2026-02-28 21:22:00,999 [INFO] 127.0.0.1 - - [28/Feb/2026 21:22:00] "POST /webhook HTTP/1.1" 200 -
+2026-02-28 21:46:02,479 [INFO] ==================================================
+2026-02-28 21:46:02,479 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-02-28 21:46:02,479 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-02-28 21:46:02,479 [ERROR] ❌ 缺少Bitget API密钥，请设置环境变量：
+2026-02-28 21:46:02,479 [ERROR]    export BITGET_API_KEY=your_key
+2026-02-28 21:46:02,479 [ERROR]    export BITGET_SECRET=your_secret
+2026-02-28 21:46:02,479 [ERROR]    export BITGET_PASSPHRASE=your_passphrase
+2026-02-28 21:46:02,479 [INFO] 🤖 Telegram Bot 开始监听...
+2026-02-28 21:46:03,210 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-02-28 21:46:03,210 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-02-28 21:46:03,210 [INFO] ==================================================
+2026-02-28 21:47:56,668 [INFO] ==================================================
+2026-02-28 21:47:56,668 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-02-28 21:47:56,668 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-02-28 21:47:56,668 [INFO] ✅ Bitget API密钥已加载
+2026-02-28 21:47:56,950 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772344076894, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-02-28 21:47:56,950 [INFO] ✅ 杠杆已设置为 20x
+2026-02-28 21:47:56,951 [INFO] 🤖 Telegram Bot 开始监听...
+2026-02-28 21:47:57,650 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-02-28 21:47:57,650 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-02-28 21:47:57,650 [INFO] ==================================================
+2026-02-28 21:47:57,657 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-02-28 21:47:57,657 [INFO] [33mPress CTRL+C to quit[0m
+2026-02-28 21:55:09,779 [INFO] ==================================================
+2026-02-28 21:55:09,779 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-02-28 21:55:09,779 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-02-28 21:55:09,779 [ERROR] ❌ 缺少Bitget API密钥，请设置环境变量：
+2026-02-28 21:55:09,779 [ERROR]    export BITGET_API_KEY=your_key
+2026-02-28 21:55:09,779 [ERROR]    export BITGET_SECRET=your_secret
+2026-02-28 21:55:09,780 [ERROR]    export BITGET_PASSPHRASE=your_passphrase
+2026-02-28 21:55:09,780 [INFO] 🤖 Telegram Bot 开始监听...
+2026-02-28 21:55:10,476 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-02-28 21:55:10,476 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-02-28 21:55:10,476 [INFO] ==================================================
+2026-02-28 21:56:16,737 [INFO] Telegram指令: /帮助
+2026-02-28 22:04:00,702 [INFO] ==================================================
+2026-02-28 22:04:00,703 [INFO] 收到TradingView信号: 「快速做空」
+2026-02-28 22:04:00,992 [INFO] 先平反向long仓
+2026-02-28 22:04:00,993 [INFO] 🔴 平long仓
+2026-02-28 22:04:01,239 [INFO] 平仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772345041143, 'data': {'successList': [{'orderId': '1411882923484401665', 'clientOid': '1411882923496984576', 'symbol': 'BTCUSDT'}], 'failureList': [], 'result': False}}
+2026-02-28 22:04:01,958 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-02-28 22:04:02,334 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-02-28 22:04:02,481 [INFO] 📈 开short仓: 0.059 BTC
+2026-02-28 22:04:02,695 [INFO] 开仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772345042626, 'data': {'clientOid': '1411882929696165888', 'orderId': '1411882929683582977'}}
+2026-02-28 22:04:03,404 [INFO] 127.0.0.1 - - [28/Feb/2026 22:04:03] "POST /webhook HTTP/1.1" 200 -
+2026-02-28 22:12:00,663 [INFO] ==================================================
+2026-02-28 22:12:00,664 [INFO] 收到TradingView信号: 「平空-5m金叉」
+2026-02-28 22:12:00,946 [INFO] 🔴 平short仓
+2026-02-28 22:12:01,188 [INFO] 平仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772345521109, 'data': {'successList': [{'orderId': '1411884936595132417', 'clientOid': '1411884936603521024', 'symbol': 'BTCUSDT'}], 'failureList': [], 'result': False}}
+2026-02-28 22:12:01,399 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-02-28 22:12:02,267 [INFO] 127.0.0.1 - - [28/Feb/2026 22:12:02] "POST /webhook HTTP/1.1" 200 -
+2026-02-28 22:48:58,202 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-02-28 23:06:53,499 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-02-28 23:49:11,280 [INFO] ==================================================
+2026-02-28 23:49:11,281 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-02-28 23:49:11,281 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-02-28 23:49:11,281 [INFO] ✅ Bitget API密钥已加载
+2026-02-28 23:49:11,742 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772351351666, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-02-28 23:49:11,742 [INFO] ✅ 杠杆已设置为 20x
+2026-02-28 23:49:11,749 [INFO] 🤖 Telegram Bot 开始监听...
+2026-02-28 23:49:12,632 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-02-28 23:49:12,633 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-02-28 23:49:12,633 [INFO] ==================================================
+2026-02-28 23:49:12,661 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-02-28 23:49:12,661 [INFO] [33mPress CTRL+C to quit[0m
+2026-02-28 23:51:59,234 [INFO] ==================================================
+2026-02-28 23:51:59,234 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-02-28 23:51:59,235 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-02-28 23:51:59,235 [INFO] ✅ Bitget API密钥已加载
+2026-02-28 23:51:59,528 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772351519465, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-02-28 23:51:59,528 [INFO] ✅ 杠杆已设置为 20x
+2026-02-28 23:51:59,529 [INFO] 🤖 Telegram Bot 开始监听...
+2026-02-28 23:52:00,245 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-02-28 23:52:00,245 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-02-28 23:52:00,245 [INFO] ==================================================
+2026-02-28 23:52:00,254 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-02-28 23:52:00,254 [INFO] [33mPress CTRL+C to quit[0m
+2026-02-28 23:52:15,230 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-02-28 23:52:15,590 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-02-28 23:52:15,761 [INFO] 127.0.0.1 - - [28/Feb/2026 23:52:15] "GET /status HTTP/1.1" 200 -
+2026-03-01 00:07:07,062 [INFO] ==================================================
+2026-03-01 00:07:07,063 [INFO] 收到TradingView信号: 「{\signal\: \快速做多\}」
+2026-03-01 00:07:07,527 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 00:07:07,873 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 00:07:08,011 [INFO] 📈 开long仓: 0.06 BTC
+2026-03-01 00:07:08,204 [INFO] 开仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772352428142, 'data': {'clientOid': '1411913906799661056', 'orderId': '1411913906782883841'}}
+2026-03-01 00:07:08,905 [INFO] 127.0.0.1 - - [01/Mar/2026 00:07:08] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 00:11:36,654 [WARNING] 拒绝未授权Chat ID: -1003638692638
+2026-03-01 00:11:48,683 [WARNING] 拒绝未授权Chat ID: -1003638692638
+2026-03-01 00:12:37,732 [WARNING] 拒绝未授权Chat ID: -1003638692638
+2026-03-01 00:13:02,717 [WARNING] 拒绝未授权Chat ID: -1003638692638
+2026-03-01 00:14:49,233 [WARNING] 拒绝未授权Chat ID: -1003638692638
+2026-03-01 00:16:14,823 [WARNING] 拒绝未授权Chat ID: -1003638692638
+2026-03-01 00:17:27,540 [WARNING] 拒绝未授权Chat ID: -1003638692638
+2026-03-01 00:17:36,840 [WARNING] 拒绝未授权Chat ID: -1003638692638
+2026-03-01 00:24:38,738 [INFO] ==================================================
+2026-03-01 00:24:38,738 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-03-01 00:24:38,738 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-03-01 00:24:38,738 [INFO] ✅ Bitget API密钥已加载
+2026-03-01 00:24:38,932 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772353478883, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-03-01 00:24:38,932 [INFO] ✅ 杠杆已设置为 20x
+2026-03-01 00:24:38,933 [INFO] 🤖 Telegram Bot 开始监听...
+2026-03-01 00:24:39,634 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-03-01 00:24:39,635 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-03-01 00:24:39,635 [INFO] ==================================================
+2026-03-01 00:24:39,644 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-03-01 00:24:39,644 [INFO] [33mPress CTRL+C to quit[0m
+2026-03-01 00:24:47,863 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 00:24:48,261 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 00:24:48,403 [INFO] 127.0.0.1 - - [01/Mar/2026 00:24:48] "GET /status HTTP/1.1" 200 -
+2026-03-01 00:25:28,399 [WARNING] 拒绝未授权Chat ID: -1003638692638
+2026-03-01 00:39:28,792 [INFO] ==================================================
+2026-03-01 00:39:28,792 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-03-01 00:39:28,792 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-03-01 00:39:28,792 [INFO] ✅ Bitget API密钥已加载
+2026-03-01 00:39:29,119 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772354369037, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-03-01 00:39:29,120 [INFO] ✅ 杠杆已设置为 20x
+2026-03-01 00:39:29,120 [INFO] 🤖 Telegram Bot 开始监听...
+2026-03-01 00:39:34,029 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-03-01 00:39:34,030 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-03-01 00:39:34,030 [INFO] ==================================================
+2026-03-01 00:39:34,042 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-03-01 00:39:34,042 [INFO] [33mPress CTRL+C to quit[0m
+2026-03-01 00:39:45,801 [INFO] Telegram指令: /start
+2026-03-01 00:39:54,552 [INFO] Telegram指令: /帮助
+2026-03-01 00:43:38,152 [INFO] Telegram指令: /持仓
+2026-03-01 00:43:38,584 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 00:43:38,938 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 00:47:14,004 [INFO] Telegram指令: /平多
+2026-03-01 00:47:14,970 [INFO] 🔴 平long仓
+2026-03-01 00:47:15,166 [INFO] 平仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772354835100, 'data': {'successList': [{'orderId': '1411924002313228289', 'clientOid': '1411924002321616896', 'symbol': 'BTCUSDT'}], 'failureList': [], 'result': False}}
+2026-03-01 00:47:15,355 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 00:57:59,585 [INFO] ==================================================
+2026-03-01 00:57:59,585 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-03-01 00:57:59,585 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-03-01 00:57:59,585 [INFO] ✅ Bitget API密钥已加载
+2026-03-01 00:57:59,768 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772355479723, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-03-01 00:57:59,768 [INFO] ✅ 杠杆已设置为 20x
+2026-03-01 00:57:59,768 [INFO] 🤖 Telegram Bot 开始监听...
+2026-03-01 00:58:00,465 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-03-01 00:58:00,465 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-03-01 00:58:00,465 [INFO] ==================================================
+2026-03-01 00:58:00,476 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-03-01 00:58:00,476 [INFO] [33mPress CTRL+C to quit[0m
+2026-03-01 02:54:29,843 [INFO] Telegram指令: /持仓
+2026-03-01 02:54:30,239 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 02:54:30,570 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 08:43:23,655 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 08:43:24,006 [WARNING] 价格源失败: list indices must be integers or slices, not str
+2026-03-01 08:43:24,151 [INFO] 127.0.0.1 - - [01/Mar/2026 08:43:24] "GET /status HTTP/1.1" 200 -
+2026-03-01 09:17:34,085 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-03-01 09:29:34,151 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-03-01 10:53:11,819 [INFO] ==================================================
+2026-03-01 10:53:11,819 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-03-01 10:53:11,819 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-03-01 10:53:11,820 [ERROR] ❌ 缺少Bitget API密钥，请设置环境变量：
+2026-03-01 10:53:11,820 [ERROR]    export BITGET_API_KEY=your_key
+2026-03-01 10:53:11,820 [ERROR]    export BITGET_SECRET=your_secret
+2026-03-01 10:53:11,820 [ERROR]    export BITGET_PASSPHRASE=your_passphrase
+2026-03-01 10:53:11,820 [INFO] 正在启动 ngrok...
+2026-03-01 10:53:14,849 [WARNING] ngrok启动失败: HTTPConnectionPool(host='localhost', port=4040): Max retries exceeded with url: /api/tunnels (Caused by NewConnectionError("HTTPConnection(host='localhost', port=4040): Failed to establish a new connection: [Errno 61] Connection refused"))
+2026-03-01 10:53:14,849 [WARNING] ⚠️ ngrok启动失败，webhook将无法接收TradingView信号
+2026-03-01 10:53:14,849 [INFO] 🤖 Telegram Bot 开始监听...
+2026-03-01 10:53:15,691 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-03-01 10:53:15,691 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-03-01 10:53:15,691 [INFO] ==================================================
+2026-03-01 10:55:11,283 [INFO] ==================================================
+2026-03-01 10:55:11,284 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-03-01 10:55:11,284 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-03-01 10:55:11,284 [INFO] ✅ Bitget API密钥已加载
+2026-03-01 10:55:11,557 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772391311497, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-03-01 10:55:11,558 [INFO] ✅ 杠杆已设置为 20x
+2026-03-01 10:55:11,558 [INFO] 正在启动 ngrok...
+2026-03-01 10:55:14,575 [WARNING] ngrok启动失败: HTTPConnectionPool(host='localhost', port=4040): Max retries exceeded with url: /api/tunnels (Caused by NewConnectionError("HTTPConnection(host='localhost', port=4040): Failed to establish a new connection: [Errno 61] Connection refused"))
+2026-03-01 10:55:14,576 [WARNING] ⚠️ ngrok启动失败，webhook将无法接收TradingView信号
+2026-03-01 10:55:14,576 [INFO] 🤖 Telegram Bot 开始监听...
+2026-03-01 10:55:15,270 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-03-01 10:55:15,270 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-03-01 10:55:15,270 [INFO] ==================================================
+2026-03-01 10:55:15,285 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-03-01 10:55:15,286 [INFO] [33mPress CTRL+C to quit[0m
+2026-03-01 10:57:52,169 [INFO] ==================================================
+2026-03-01 10:57:52,169 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-03-01 10:57:52,169 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-03-01 10:57:52,169 [INFO] ✅ Bitget API密钥已加载
+2026-03-01 10:57:52,577 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772391472502, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-03-01 10:57:52,578 [INFO] ✅ 杠杆已设置为 20x
+2026-03-01 10:57:52,578 [INFO] 正在启动 ngrok...
+2026-03-01 10:57:55,600 [INFO] ✅ ngrok已启动: https://kia-pluteal-auricularly.ngrok-free.dev
+2026-03-01 10:57:55,600 [INFO] 📡 Webhook URL: https://kia-pluteal-auricularly.ngrok-free.dev/webhook
+2026-03-01 10:57:55,600 [INFO] 🤖 Telegram Bot 开始监听...
+2026-03-01 10:57:56,359 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-03-01 10:57:56,360 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-03-01 10:57:56,360 [INFO] ==================================================
+2026-03-01 10:57:56,369 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-03-01 10:57:56,369 [INFO] [33mPress CTRL+C to quit[0m
+2026-03-01 11:00:53,543 [INFO] ==================================================
+2026-03-01 11:00:53,544 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-03-01 11:00:53,544 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-03-01 11:00:53,544 [INFO] ✅ Bitget API密钥已加载
+2026-03-01 11:00:53,732 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772391653680, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-03-01 11:00:53,733 [INFO] ✅ 杠杆已设置为 20x
+2026-03-01 11:00:53,733 [INFO] 正在启动 ngrok...
+2026-03-01 11:00:59,752 [INFO] ✅ ngrok已启动: https://kia-pluteal-auricularly.ngrok-free.dev
+2026-03-01 11:00:59,753 [INFO] 📡 Webhook URL: https://kia-pluteal-auricularly.ngrok-free.dev/webhook
+2026-03-01 11:00:59,753 [INFO] 🤖 Telegram Bot 开始监听...
+2026-03-01 11:01:00,451 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-03-01 11:01:00,451 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-03-01 11:01:00,451 [INFO] ==================================================
+2026-03-01 11:01:00,468 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-03-01 11:01:00,468 [INFO] [33mPress CTRL+C to quit[0m
+2026-03-01 14:22:00,510 [INFO] ==================================================
+2026-03-01 14:22:00,511 [INFO] ==================================================
+2026-03-01 14:22:00,513 [INFO] 收到TradingView信号: 「快速做多」
+2026-03-01 14:22:00,513 [INFO] 收到TradingView信号: 「快速做多」
+2026-03-01 14:22:01,229 [INFO] 📈 开long仓: 0.061 BTC
+2026-03-01 14:22:01,480 [INFO] 开仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772403721410, 'data': {'clientOid': '1412129046392360960', 'orderId': '1412129046363000833'}}
+2026-03-01 14:22:01,556 [INFO] 📈 开long仓: 0.061 BTC
+2026-03-01 14:22:01,808 [ERROR] HTTP请求失败: 400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/place-order
+2026-03-01 14:22:01,813 [INFO] 开仓结果: {'code': '-1', 'msg': '400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/place-order', 'data': None}
+2026-03-01 14:22:02,180 [INFO] 127.0.0.1 - - [01/Mar/2026 14:22:02] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 14:22:02,509 [INFO] 127.0.0.1 - - [01/Mar/2026 14:22:02] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 14:27:04,328 [INFO] ==================================================
+2026-03-01 14:27:04,329 [INFO] 收到TradingView信号: 「止损-快速多」
+2026-03-01 14:27:04,329 [WARNING] 未识别信号: 「止损-快速多」
+2026-03-01 14:27:04,329 [INFO] 127.0.0.1 - - [01/Mar/2026 14:27:04] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 14:32:03,695 [INFO] Telegram指令: 请帮我运行命令“echo $BITGET_API_KEY”，告诉我结果是什么？
+2026-03-01 14:37:00,378 [INFO] ==================================================
+2026-03-01 14:37:00,379 [INFO] ==================================================
+2026-03-01 14:37:00,380 [INFO] 收到TradingView信号: 「快速做空」
+2026-03-01 14:37:00,380 [INFO] 收到TradingView信号: 「快速做空」
+2026-03-01 14:37:00,591 [INFO] 先平反向long仓
+2026-03-01 14:37:00,592 [INFO] 🔴 平long仓
+2026-03-01 14:37:00,596 [INFO] 先平反向long仓
+2026-03-01 14:37:00,597 [INFO] 🔴 平long仓
+2026-03-01 14:37:00,804 [INFO] 平仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772404620742, 'data': {'successList': [{'orderId': '1412132818422222850', 'clientOid': '1412132818430611456', 'symbol': 'BTCUSDT'}], 'failureList': [], 'result': False}}
+2026-03-01 14:37:00,816 [ERROR] HTTP请求失败: 400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/close-positions
+2026-03-01 14:37:00,820 [INFO] 平仓结果: {'code': '-1', 'msg': '400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/close-positions', 'data': None}
+2026-03-01 14:37:01,729 [INFO] 📈 开short仓: 0.061 BTC
+2026-03-01 14:37:01,744 [INFO] 📈 开short仓: 0.061 BTC
+2026-03-01 14:37:01,942 [ERROR] HTTP请求失败: 400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/place-order
+2026-03-01 14:37:01,946 [INFO] 开仓结果: {'code': '-1', 'msg': '400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/place-order', 'data': None}
+2026-03-01 14:37:01,961 [INFO] 开仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772404621881, 'data': {'clientOid': '1412132823203729408', 'orderId': '1412132823191146497'}}
+2026-03-01 14:37:02,650 [INFO] 127.0.0.1 - - [01/Mar/2026 14:37:02] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 14:37:02,690 [INFO] 127.0.0.1 - - [01/Mar/2026 14:37:02] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 14:41:10,366 [INFO] ==================================================
+2026-03-01 14:41:10,367 [INFO] 收到TradingView信号: 「止损-快速空」
+2026-03-01 14:41:10,367 [WARNING] 未识别信号: 「止损-快速空」
+2026-03-01 14:41:10,368 [INFO] 127.0.0.1 - - [01/Mar/2026 14:41:10] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 16:11:00,463 [INFO] ==================================================
+2026-03-01 16:11:00,466 [INFO] ==================================================
+2026-03-01 16:11:00,467 [INFO] 收到TradingView信号: 「普通做多」
+2026-03-01 16:11:00,468 [INFO] 收到TradingView信号: 「普通做多」
+2026-03-01 16:11:00,781 [INFO] 先平反向short仓
+2026-03-01 16:11:00,782 [INFO] 🔴 平short仓
+2026-03-01 16:11:00,978 [INFO] 先平反向short仓
+2026-03-01 16:11:00,979 [INFO] 🔴 平short仓
+2026-03-01 16:11:00,999 [INFO] 平仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772410260931, 'data': {'successList': [{'orderId': '1412156475102089217', 'clientOid': '1412156475110477824', 'symbol': 'BTCUSDT'}], 'failureList': [], 'result': False}}
+2026-03-01 16:11:01,198 [ERROR] HTTP请求失败: 400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/close-positions
+2026-03-01 16:11:01,202 [INFO] 平仓结果: {'code': '-1', 'msg': '400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/close-positions', 'data': None}
+2026-03-01 16:11:01,933 [INFO] 📈 开long仓: 0.061 BTC
+2026-03-01 16:11:02,134 [INFO] 📈 开long仓: 0.061 BTC
+2026-03-01 16:11:02,162 [ERROR] HTTP请求失败: 400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/place-order
+2026-03-01 16:11:02,165 [INFO] 开仓结果: {'code': '-1', 'msg': '400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/place-order', 'data': None}
+2026-03-01 16:11:02,369 [ERROR] HTTP请求失败: 400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/place-order
+2026-03-01 16:11:02,373 [INFO] 开仓结果: {'code': '-1', 'msg': '400 Client Error: Bad Request for url: https://api.bitget.com/api/v2/mix/order/place-order', 'data': None}
+2026-03-01 16:11:02,879 [INFO] 127.0.0.1 - - [01/Mar/2026 16:11:02] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 16:11:03,127 [INFO] 127.0.0.1 - - [01/Mar/2026 16:11:03] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 16:15:06,513 [INFO] ==================================================
+2026-03-01 16:15:06,514 [INFO] 收到TradingView信号: 「止损-普通多」
+2026-03-01 16:15:06,514 [WARNING] 未识别信号: 「止损-普通多」
+2026-03-01 16:15:06,515 [INFO] 127.0.0.1 - - [01/Mar/2026 16:15:06] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 16:52:41,140 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-03-01 17:10:20,949 [INFO] ==================================================
+2026-03-01 17:10:20,949 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-03-01 17:10:20,950 [INFO] 交易品种: BTCUSDT | 本金: 200 USDT | 杠杆: 20x
+2026-03-01 17:10:20,950 [INFO] ✅ Bitget API密钥已加载
+2026-03-01 17:10:21,328 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772413821185, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-03-01 17:10:21,328 [INFO] ✅ 杠杆已设置为 20x
+2026-03-01 17:10:21,328 [INFO] 正在启动 ngrok...
+2026-03-01 17:10:27,348 [INFO] ✅ ngrok已启动: https://kia-pluteal-auricularly.ngrok-free.dev
+2026-03-01 17:10:27,348 [INFO] 📡 Webhook URL: https://kia-pluteal-auricularly.ngrok-free.dev/webhook
+2026-03-01 17:10:27,349 [INFO] 🤖 Telegram Bot 开始监听...
+2026-03-01 17:10:28,043 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-03-01 17:10:28,044 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-03-01 17:10:28,044 [INFO] ==================================================
+2026-03-01 17:10:28,054 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-03-01 17:10:28,054 [INFO] [33mPress CTRL+C to quit[0m
+2026-03-01 17:12:05,873 [INFO] ==================================================
+2026-03-01 17:12:05,873 [INFO] Bitget Trading Bot v5 + Telegram控制
+2026-03-01 17:12:05,873 [INFO] 交易品种: BTCUSDT | 本金: 50 USDT | 杠杆: 20x
+2026-03-01 17:12:05,873 [INFO] ✅ Bitget API密钥已加载
+2026-03-01 17:12:06,193 [INFO] 设置杠杆 20x: {'code': '00000', 'msg': 'success', 'requestTime': 1772413926082, 'data': {'symbol': 'BTCUSDT', 'marginCoin': 'USDT', 'longLeverage': '20', 'shortLeverage': '20', 'crossMarginLeverage': '20', 'marginMode': 'crossed'}}
+2026-03-01 17:12:06,193 [INFO] ✅ 杠杆已设置为 20x
+2026-03-01 17:12:06,193 [INFO] 正在启动 ngrok...
+2026-03-01 17:12:12,216 [INFO] ✅ ngrok已启动: https://kia-pluteal-auricularly.ngrok-free.dev
+2026-03-01 17:12:12,217 [INFO] 📡 Webhook URL: https://kia-pluteal-auricularly.ngrok-free.dev/webhook
+2026-03-01 17:12:12,217 [INFO] 🤖 Telegram Bot 开始监听...
+2026-03-01 17:12:13,016 [INFO] Webhook: http://0.0.0.0:5001/webhook
+2026-03-01 17:12:13,016 [INFO] 状态:    http://0.0.0.0:5001/status
+2026-03-01 17:12:13,016 [INFO] ==================================================
+2026-03-01 17:12:13,028 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.86:5001
+2026-03-01 17:12:13,029 [INFO] [33mPress CTRL+C to quit[0m
+2026-03-01 18:28:24,969 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-03-01 18:28:53,172 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8717761793:AAFffTAJ0zuNG3m6asRYfEz36bLPG_Sq2Ts/getUpdates?timeout=30&allowed_updates=message (Caused by NameResolutionError("HTTPSConnection(host='api.telegram.org', port=443): Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-01 18:35:46,392 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-03-01 22:20:00,828 [INFO] ==================================================
+2026-03-01 22:20:00,831 [INFO] 收到TradingView信号: 「快速做空」
+2026-03-01 22:20:00,887 [INFO] ==================================================
+2026-03-01 22:20:00,887 [INFO] 收到TradingView信号: 「快速做空」
+2026-03-01 22:20:00,887 [INFO] 重复信号忽略: 「快速做空」(0.1s内)
+2026-03-01 22:20:00,888 [INFO] 127.0.0.1 - - [01/Mar/2026 22:20:00] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 22:20:01,588 [INFO] 📈 开short仓: 0.015 BTC
+2026-03-01 22:20:01,804 [INFO] 开仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772432401739, 'data': {'clientOid': '1412249340390035456', 'orderId': '1412249340373258241'}}
+2026-03-01 22:20:02,506 [INFO] 127.0.0.1 - - [01/Mar/2026 22:20:02] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 22:36:00,755 [INFO] ==================================================
+2026-03-01 22:36:00,757 [INFO] 收到TradingView信号: 「普通做空」
+2026-03-01 22:36:01,038 [INFO] ⚠️ 已有空仓，跳过重复开仓
+2026-03-01 22:36:01,745 [INFO] 127.0.0.1 - - [01/Mar/2026 22:36:01] "POST /webhook HTTP/1.1" 200 -
+2026-03-01 22:47:08,909 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-03-01 23:35:11,950 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-03-02 00:12:25,932 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-03-02 00:50:32,608 [INFO] Telegram指令: /平空
+2026-03-02 00:50:33,615 [INFO] 🔴 平short仓
+2026-03-02 00:50:33,821 [INFO] 平仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772441433760, 'data': {'successList': [{'orderId': '1412287223415066627', 'clientOid': '1412287223415066628', 'symbol': 'BTCUSDT'}], 'failureList': [], 'result': False}}
+2026-03-02 01:06:29,522 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)
+2026-03-02 01:12:00,916 [INFO] ==================================================
+2026-03-02 01:12:00,917 [INFO] 收到TradingView信号: 「快速做多」
+2026-03-02 01:12:00,945 [INFO] ==================================================
+2026-03-02 01:12:00,946 [INFO] 收到TradingView信号: 「快速做多」
+2026-03-02 01:12:00,946 [INFO] 重复信号忽略: 「快速做多」(0.0s内)
+2026-03-02 01:12:00,947 [INFO] 127.0.0.1 - - [02/Mar/2026 01:12:00] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 01:12:01,834 [INFO] 📈 开long仓: 0.015 BTC
+2026-03-02 01:12:02,037 [INFO] 开仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772442721971, 'data': {'clientOid': '1412292626588782592', 'orderId': '1412292626572005377'}}
+2026-03-02 01:12:02,832 [INFO] 127.0.0.1 - - [02/Mar/2026 01:12:02] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 01:53:00,382 [INFO] ==================================================
+2026-03-02 01:53:00,383 [INFO] ==================================================
+2026-03-02 01:53:00,384 [INFO] 收到TradingView信号: 「止损-多」
+2026-03-02 01:53:00,385 [INFO] 收到TradingView信号: 「平多仓」
+2026-03-02 01:53:00,385 [WARNING] 未识别信号: 「止损-多」
+2026-03-02 01:53:00,387 [INFO] 127.0.0.1 - - [02/Mar/2026 01:53:00] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 01:53:00,666 [INFO] 🔴 平long仓
+2026-03-02 01:53:00,860 [INFO] 平仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772445180797, 'data': {'successList': [{'orderId': '1412302939627343877', 'clientOid': '1412302939635732481', 'symbol': 'BTCUSDT'}], 'failureList': [], 'result': False}}
+2026-03-02 01:53:01,740 [INFO] 127.0.0.1 - - [02/Mar/2026 01:53:01] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 04:31:00,862 [INFO] ==================================================
+2026-03-02 04:31:00,865 [INFO] 收到TradingView信号: 「快速做空」
+2026-03-02 04:31:00,908 [INFO] ==================================================
+2026-03-02 04:31:00,909 [INFO] 收到TradingView信号: 「快速做空」
+2026-03-02 04:31:00,909 [INFO] 重复信号忽略: 「快速做空」(0.0s内)
+2026-03-02 04:31:00,910 [INFO] 127.0.0.1 - - [02/Mar/2026 04:31:00] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 04:31:01,508 [INFO] 📈 开short仓: 0.015 BTC
+2026-03-02 04:31:01,736 [INFO] 开仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772454661655, 'data': {'clientOid': '1412342705240559616', 'orderId': '1412342705219588098'}}
+2026-03-02 04:31:02,482 [INFO] 127.0.0.1 - - [02/Mar/2026 04:31:02] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 05:52:00,396 [INFO] ==================================================
+2026-03-02 05:52:00,400 [INFO] ==================================================
+2026-03-02 05:52:00,400 [INFO] 收到TradingView信号: 「止盈-空」
+2026-03-02 05:52:00,400 [INFO] 收到TradingView信号: 「平空仓」
+2026-03-02 05:52:00,401 [WARNING] 未识别信号: 「止盈-空」
+2026-03-02 05:52:00,401 [INFO] 127.0.0.1 - - [02/Mar/2026 05:52:00] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 05:52:00,706 [INFO] 🔴 平short仓
+2026-03-02 05:52:00,941 [INFO] 平仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772459520863, 'data': {'successList': [{'orderId': '1412363086236110850', 'clientOid': '1412363086244499459', 'symbol': 'BTCUSDT'}], 'failureList': [], 'result': False}}
+2026-03-02 05:52:01,881 [INFO] 127.0.0.1 - - [02/Mar/2026 05:52:01] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 06:50:05,611 [INFO] ==================================================
+2026-03-02 06:50:05,613 [INFO] 收到TradingView信号: 「快速做多」
+2026-03-02 06:50:06,610 [INFO] 📈 开long仓: 0.015 BTC
+2026-03-02 06:50:06,823 [INFO] 开仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772463006747, 'data': {'clientOid': '1412377707114287104', 'orderId': '1412377707093315585'}}
+2026-03-02 06:50:07,581 [INFO] 127.0.0.1 - - [02/Mar/2026 06:50:07] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 06:50:37,697 [INFO] ==================================================
+2026-03-02 06:50:37,698 [INFO] 收到TradingView信号: 「快速做多」
+2026-03-02 06:50:37,990 [INFO] ⚠️ 已有多仓，跳过重复开仓
+2026-03-02 06:50:38,702 [INFO] 127.0.0.1 - - [02/Mar/2026 06:50:38] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 07:03:02,015 [INFO] ==================================================
+2026-03-02 07:03:02,018 [INFO] 收到TradingView信号: 「止盈-多」
+2026-03-02 07:03:02,018 [WARNING] 未识别信号: 「止盈-多」
+2026-03-02 07:03:02,018 [INFO] 127.0.0.1 - - [02/Mar/2026 07:03:02] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 07:03:02,046 [INFO] ==================================================
+2026-03-02 07:03:02,047 [INFO] 收到TradingView信号: 「平多仓」
+2026-03-02 07:03:02,329 [INFO] 🔴 平long仓
+2026-03-02 07:03:02,549 [INFO] 平仓结果: {'code': '00000', 'msg': 'success', 'requestTime': 1772463782484, 'data': {'successList': [{'orderId': '1412380960753340426', 'clientOid': '1412380960761729129', 'symbol': 'BTCUSDT'}], 'failureList': [], 'result': False}}
+2026-03-02 07:03:03,491 [INFO] 127.0.0.1 - - [02/Mar/2026 07:03:03] "POST /webhook HTTP/1.1" 200 -
+2026-03-02 07:07:59,985 [ERROR] Telegram轮询错误: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=35)

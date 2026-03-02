@@ -1,0 +1,247 @@
+//@version=5
+strategy("EMA Cross Strategy v5", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=100)
+
+// ══════════════════════════════════════════════
+// 参数设置
+// ══════════════════════════════════════════════
+ema1Short = input.int(50,  "1分钟 EMA Short (EMA50)",  group="1分钟 EMA")
+ema1Long  = input.int(200, "1分钟 EMA Long (EMA200)",  group="1分钟 EMA")
+ema1Fast  = input.int(20,  "1分钟 EMA Fast (EMA20)",   group="1分钟 EMA")
+ema5Short = input.int(20,  "5分钟 EMA Short (EMA20)",  group="5分钟 EMA")
+ema5Long  = input.int(50,  "5分钟 EMA Long (EMA50)",   group="5分钟 EMA")
+windowBars = input.int(240, "普通开仓等待窗口(K线数=4小时)", group="普通开仓窗口")
+
+// ══════════════════════════════════════════════
+// 1分钟 EMA 计算与显示
+// ══════════════════════════════════════════════
+ema1S = ta.ema(close, ema1Short)  // EMA50
+ema1L = ta.ema(close, ema1Long)   // EMA200
+ema1F = ta.ema(close, ema1Fast)   // EMA20
+
+plot(ema1F, color=color.purple,    title="1m EMA20",  linewidth=1)
+plot(ema1S, color=color.blue,      title="1m EMA50",  linewidth=1)
+plot(ema1L, color=color.red,       title="1m EMA200", linewidth=2)
+
+// ══════════════════════════════════════════════
+// 5分钟 EMA 计算与显示
+// ══════════════════════════════════════════════
+ema5S_5m = request.security(syminfo.tickerid, "5", ta.ema(close, ema5Short))
+ema5L_5m = request.security(syminfo.tickerid, "5", ta.ema(close, ema5Long))
+
+plot(ema5S_5m, color=color.green,  title="5m EMA20", linewidth=1)
+plot(ema5L_5m, color=color.orange, title="5m EMA50", linewidth=1)
+
+// ══════════════════════════════════════════════
+// 交叉信号检测
+// ══════════════════════════════════════════════
+// 1分钟 EMA20/EMA50
+ema1_20_50_Gold  = ta.crossover(ema1F, ema1S)   // EMA20上穿EMA50
+ema1_20_50_Death = ta.crossunder(ema1F, ema1S)  // EMA20下穿EMA50
+
+// 1分钟 EMA50/EMA200
+ema1GoldCross  = ta.crossover(ema1S, ema1L)     // EMA50上穿EMA200
+ema1DeathCross = ta.crossunder(ema1S, ema1L)    // EMA50下穿EMA200
+
+// 5分钟 EMA20/EMA50
+ema5GoldCross  = ta.crossover(ema5S_5m, ema5L_5m)
+ema5DeathCross = ta.crossunder(ema5S_5m, ema5L_5m)
+
+// ══════════════════════════════════════════════
+// 状态变量
+// ══════════════════════════════════════════════
+var bool fast_long_pending  = false  // 等待EMA50/200金叉以快速做多
+var bool fast_short_pending = false  // 等待EMA50/200死叉以快速做空
+var bool waitingFor5m       = false  // 普通路径：等待5分钟信号
+var int  eventDirection     = 0      // 1=等待做多, -1=等待做空
+var int  eventBar           = 0      // 记录普通路径事件触发时的bar_index
+
+// ══════════════════════════════════════════════
+// 信号变量（每根K线独立判断，用于plotshape）
+// 注意：必须声明为var bool并在每根K线重置
+// ══════════════════════════════════════════════
+var bool sig_fast_long    = false
+var bool sig_fast_short   = false
+var bool sig_normal_long  = false
+var bool sig_normal_short = false
+var bool sig_close_long   = false
+var bool sig_close_short  = false
+
+// 每根K线开始时重置信号
+sig_fast_long    := false
+sig_fast_short   := false
+sig_normal_long  := false
+sig_normal_short := false
+sig_close_long   := false
+sig_close_short  := false
+
+// ══════════════════════════════════════════════
+// 场景1：快速做多
+//   EMA20上穿EMA50 → 等待 → EMA50上穿EMA200 → 开多
+// ══════════════════════════════════════════════
+if ema1_20_50_Gold
+    fast_long_pending := true
+
+if fast_long_pending and ema1GoldCross
+    strategy.entry("FastLong", strategy.long, comment="快速做多")
+    sig_fast_long      := true
+    fast_long_pending  := false
+
+// ══════════════════════════════════════════════
+// 场景2：快速做空
+//   EMA20下穿EMA50 → 等待 → EMA50下穿EMA200 → 开空
+// ══════════════════════════════════════════════
+if ema1_20_50_Death
+    fast_short_pending := true
+
+if fast_short_pending and ema1DeathCross
+    strategy.entry("FastShort", strategy.short, comment="快速做空")
+    sig_fast_short     := true
+    fast_short_pending := false
+
+// ══════════════════════════════════════════════
+// 场景3/4：普通做多/做空
+//   EMA50/200交叉 → 等待240根K线窗口 → 5分钟EMA20/50同向交叉 → 开仓
+// ══════════════════════════════════════════════
+
+// 触发普通路径（快速路径刚用掉EMA50/200金叉就不重复触发）
+if ema1GoldCross and not fast_long_pending
+    eventBar      := bar_index
+    waitingFor5m  := true
+    eventDirection := 1
+
+if ema1DeathCross and not fast_short_pending
+    eventBar      := bar_index
+    waitingFor5m  := true
+    eventDirection := -1
+
+// 判断窗口是否超时
+windowExpired = (bar_index - eventBar) > windowBars
+
+// 普通路径：取消条件
+if waitingFor5m
+    // 等待做多时出现1分钟死叉 → 取消
+    if eventDirection == 1 and ema1DeathCross
+        waitingFor5m  := false
+        eventDirection := 0
+    // 等待做空时出现1分钟金叉 → 取消
+    if eventDirection == -1 and ema1GoldCross
+        waitingFor5m  := false
+        eventDirection := 0
+    // 超时取消
+    if windowExpired
+        waitingFor5m  := false
+        eventDirection := 0
+
+// 普通路径：触发开仓
+if waitingFor5m and eventDirection == 1 and ema5GoldCross and not windowExpired
+    strategy.entry("Long", strategy.long, comment="普通做多")
+    sig_normal_long := true
+    waitingFor5m    := false
+    eventDirection  := 0
+
+if waitingFor5m and eventDirection == -1 and ema5DeathCross and not windowExpired
+    strategy.entry("Short", strategy.short, comment="普通做空")
+    sig_normal_short := true
+    waitingFor5m     := false
+    eventDirection   := 0
+
+// ══════════════════════════════════════════════
+// 平仓规则
+// ══════════════════════════════════════════════
+
+// 平多仓
+if strategy.position_size > 0
+    if ema5DeathCross
+        strategy.close("Long",     comment="平多-5m死叉")
+        strategy.close("FastLong", comment="平多-5m死叉")
+        sig_close_long := true
+    if ema1DeathCross
+        strategy.close("Long",     comment="平多-1m死叉")
+        strategy.close("FastLong", comment="平多-1m死叉")
+        sig_close_long := true
+
+// 平空仓
+if strategy.position_size < 0
+    if ema5GoldCross
+        strategy.close("Short",     comment="平空-5m金叉")
+        strategy.close("FastShort", comment="平空-5m金叉")
+        sig_close_short := true
+    if ema1GoldCross
+        strategy.close("Short",     comment="平空-1m金叉")
+        strategy.close("FastShort", comment="平空-1m金叉")
+        sig_close_short := true
+
+// ══════════════════════════════════════════════
+// K线信号可视化
+// 每种信号使用不同形状、颜色、位置，确保清晰可辨
+// ══════════════════════════════════════════════
+
+// ── 快速做多：绿色向上三角，K线下方，文字"⚡多" ──
+plotshape(sig_fast_long,
+     title     = "快速做多",
+     text      = "⚡快速多",
+     location  = location.belowbar,
+     color     = color.new(color.lime, 0),
+     textcolor = color.white,
+     style     = shape.triangleup,
+     size      = size.normal)
+
+// ── 快速做空：红色向下三角，K线上方，文字"⚡空" ──
+plotshape(sig_fast_short,
+     title     = "快速做空",
+     text      = "⚡快速空",
+     location  = location.abovebar,
+     color     = color.new(color.red, 0),
+     textcolor = color.white,
+     style     = shape.triangledown,
+     size      = size.normal)
+
+// ── 普通做多：蓝色向上箭头，K线下方 ──
+plotshape(sig_normal_long,
+     title     = "普通做多",
+     text      = "▲普通多",
+     location  = location.belowbar,
+     color     = color.new(color.blue, 0),
+     textcolor = color.white,
+     style     = shape.arrowup,
+     size      = size.normal)
+
+// ── 普通做空：橙色向下箭头，K线上方 ──
+plotshape(sig_normal_short,
+     title     = "普通做空",
+     text      = "▼普通空",
+     location  = location.abovebar,
+     color     = color.new(color.orange, 0),
+     textcolor = color.white,
+     style     = shape.arrowdown,
+     size      = size.normal)
+
+// ── 平多仓：紫色X，K线上方 ──
+plotshape(sig_close_long,
+     title     = "平多仓",
+     text      = "✕平多",
+     location  = location.abovebar,
+     color     = color.new(color.purple, 0),
+     textcolor = color.white,
+     style     = shape.xcross,
+     size      = size.small)
+
+// ── 平空仓：紫色X，K线下方 ──
+plotshape(sig_close_short,
+     title     = "平空仓",
+     text      = "✕平空",
+     location  = location.belowbar,
+     color     = color.new(color.purple, 0),
+     textcolor = color.white,
+     style     = shape.xcross,
+     size      = size.small)
+
+// ══════════════════════════════════════════════
+// Alerts（配合Webhook使用）
+// ══════════════════════════════════════════════
+alertcondition(sig_fast_long,    title="快速做多信号",  message='{"signal": "快速做多"}')
+alertcondition(sig_fast_short,   title="快速做空信号",  message='{"signal": "快速做空"}')
+alertcondition(sig_normal_long,  title="普通做多信号",  message='{"signal": "普通做多"}')
+alertcondition(sig_normal_short, title="普通做空信号",  message='{"signal": "普通做空"}')
+alertcondition(sig_close_long,   title="平多仓信号",   message='{"signal": "平多仓"}')
+alertcondition(sig_close_short,  title="平空仓信号",   message='{"signal": "平空仓"}')

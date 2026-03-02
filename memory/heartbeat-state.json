@@ -1,0 +1,16 @@
+{
+  "lastChecks": {
+    "email": null,
+    "calendar": null,
+    "weather": null
+  },
+  "lastTopicScan": 1737504000000,
+  "knownTopics": [
+    "meta",
+    "english-eval",
+    "life-manager",
+    "agent-system",
+    "general",
+    "autotrading"
+  ]
+}
