@@ -1,73 +1,131 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Scenario } from '@/lib/types';
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const MODEL = 'google/gemini-2.5-flash-lite';
 
-export async function POST(request: NextRequest) {
-  try {
-    const { text } = await request.json();
+// Scenario-specific evaluation guidelines
+const SCENARIO_GUIDELINES: Record<Scenario, string> = {
+  casual: `## Scenario: Casual Conversation (口语闲聊)
+- 评估标准：更口语化、更自然的表达
+- 鼓励使用：缩写 (I'm, don't, can't)、日常短语、轻松语气
+- 避免：过度正式的表达、复杂的从句
+- 示例："Just letting you know" ✓ "Just a quick note to let you know" ✗ (太正式)
 
-    if (!text || typeof text !== 'string') {
-      return NextResponse.json(
-        { error: '请提供有效的文本内容' },
-        { status: 400 }
-      );
-    }
+## 重点关注：
+- 口语化表达 (gonna, wanna, kinda)
+- 简洁直接的表达
+- 自然的对话语气`,
 
-    if (!OPENROUTER_API_KEY) {
-      return NextResponse.json(
-        { error: '服务配置错误，请联系管理员' },
-        { status: 500 }
-      );
-    }
+  business: `## Scenario: Business Email (商务邮件)
+- 评估标准：专业、清晰、有礼貌
+- 鼓励使用：完整词汇 (cannot instead of can't)、正式开场/结尾、清晰结构
+- 避免：俚语、表情符号、过短的句子
+- 示例："Just a quick note to let you know" ✓ "Just letting you know" ✗ (太随意)
 
-    const prompt = `你是一个专业的英语教师，专门帮助中文母语者提升英文表达能力。
+## 重点关注：
+- 正式词汇选择
+- 专业的开场和结尾
+- 清晰的消息结构
+- 适当的礼貌用语`,
 
-用户输入的英文如下：
+  meeting: `## Scenario: Meeting Expression (会议表达)
+- 评估标准：清晰、逻辑性强、专业
+- 鼓励使用：完整句子、明确的观点、逻辑连接词
+- 避免：模糊的表达、不完整的句子、太口语化
+- 示例："I'd like to discuss the project timeline" ✓
+
+## 重点关注：
+- 清晰的结构化表达
+- 明确的观点陈述
+- 适当的过渡和连接
+- 专业但不过于生硬`
+};
+
+function extractJSON(text: string): string {
+  // Strip markdown code fences if present
+  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+  if (fenced) return fenced[1];
+  // Fall back to first JSON object/array found
+  const raw = text.match(/(\{[\s\S]*\})/);
+  if (raw) return raw[1];
+  return text.trim();
+}
+
+const EVAL_PROMPT = (text: string, scenario: Scenario) => `You are an expert English language evaluator specializing in helping Chinese speakers improve their English to sound more NATURAL and like a native North American speaker. Evaluate the following English text and return ONLY a JSON object — no markdown, no commentary.
+
+${SCENARIO_GUIDELINES[scenario]}
+
+Text to evaluate:
 """
 ${text}
 """
 
-请按以下格式评估并提供反馈（必须返回有效的JSON）：
+IMPORTANT: 
+- Your PRIMARY focus should be on NATURALNESS - even if grammar is correct, suggest more natural expressions that Americans would actually use.
+- Apply the scenario-specific guidelines above.
+- For casual: accept and encourage colloquial expressions
+- For business: ensure professional tone and complete sentences
+- For meeting: ensure clarity and logical structure
 
+Return this exact JSON structure:
 {
-  "original": "用户的原文",
-  "corrected": "更自然的北美口语版本（如果原文已经足够自然，可以和原文相同）",
-  "score": 85,
-  "feedback": [
+  "score": <integer 0–100>,
+  "correctedText": "<full corrected version - make it sound NATURAL and appropriate for the selected scenario>",
+  "errors": [
     {
-      "type": "grammar | vocabulary | naturalness",
-      "severity": "error | improvement | suggestion",
-      "issue": "具体问题说明",
-      "suggestion": "改进建议",
-      "american": "北美地道的表达方式（如果是naturalness类型必填）"
+      "id": "err1",
+      "category": "<grammar|vocabulary|naturalness|punctuation>",
+      "original": "<exact problematic word or phrase from the input>",
+      "corrected": "<corrected replacement - use appropriate expression for the scenario>",
+      "explanation": "<explain why original is unnatural or inappropriate, suggest better way of saying it>"
     }
   ]
 }
 
-评分标准（满分100）：
-- 语法正确：基础分60分
-- 词汇选择：最高加20分
-- 自然度/北美习惯：最高加15分
-- 整体流畅：最高加5分
+Scoring guide (based on scenario):
+- 90–100: Excellent for the scenario (natural and appropriate)
+- 70–89: Good but could be more natural/appropriate
+- 50–69: Correct but not suitable for the scenario
+- Below 50: Hard to understand or inappropriate
 
-要求：
-1. 识别所有语法错误（时态、主谓一致、冠词等），severity为"error"
-2. 指出用词不当的地方，severity为"error"或"improvement"
-3. 强调"自然度"——即使语法正确，也要建议更符合北美口语习惯的表达方式，severity为"suggestion"
-4. 每条naturalness类型的反馈都要提供american字段，说明北美地道说法
-5. 如果原文完全正确且自然，feedback数组可以为空，score为100
+Scenario-specific examples:
+**Casual:**
+- "For the payment of March" → "the March payment" or "take care of the March payment"
+- "I am going to" → "I'm gonna" (natural in casual)
 
-举例：
-原文：For the payment of March, I will call the office today or tomorrow to pay it.
-反馈应该包含：
-- naturalness类型：suggestion级别
-- issue: "表达略显生硬"
-- suggestion: "更简洁的说法"
-- american: "I'll also call the office today or tomorrow to take care of the March payment."
+**Business:**
+- "Just letting you know" → "Just a quick note to let you know" (more professional)
+- "gonna" → "going to" (more formal)
 
-只返回JSON，不要其他内容。`;
+**Meeting:**
+- "pay it" → "take care of it" or "process the payment"
+- "How about I call..." → "I'll call..." or "Let me call..." (more direct and clear)
 
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+RULE: Only include errors in the "errors" array if they ACTUALLY need to be changed for the scenario. If a phrase is already natural and appropriate for the selected scenario, DO NOT include it.
+- Wrong: {"original": "I'll call you later", "explanation": "This is perfectly acceptable in casual"}
+- Correct: Don't include it in the errors array at all
+Return ONLY valid JSON.`;
+
+export async function POST(req: NextRequest) {
+  try {
+    const { text, scenario = 'casual' } = await req.json();
+
+    // Validate scenario
+    if (!['casual', 'business', 'meeting'].includes(scenario)) {
+      return NextResponse.json({ error: 'Invalid scenario. Use casual, business, or meeting.' }, { status: 400 });
+    }
+
+    if (!text || typeof text !== 'string' || text.trim().length === 0) {
+      return NextResponse.json({ error: 'Text is required.' }, { status: 400 });
+    }
+
+    if (text.length > 5000) {
+      return NextResponse.json({ error: 'Text must be under 5000 characters.' }, { status: 400 });
+    }
+
+    // Evaluate the text
+    const evalResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
@@ -76,37 +134,30 @@ ${text}
         'X-Title': 'English Eval',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash-lite',
-        messages: [
-          {
-            role: 'user',
-            content: prompt,
-          },
-        ],
+        model: MODEL,
+        messages: [{ role: 'user', content: EVAL_PROMPT(text.trim(), scenario) }],
+        max_tokens: 2048,
         temperature: 0.3,
       }),
     });
 
-    if (!response.ok) {
-      throw new Error(`OpenRouter API请求失败: ${response.status}`);
+    if (!evalResponse.ok) {
+      throw new Error(`OpenRouter API error: ${evalResponse.statusText}`);
     }
 
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content;
+    const evalData = await evalResponse.json();
+    const evalRaw = evalData.choices[0]?.message?.content || '';
+    const evaluation = JSON.parse(extractJSON(evalRaw));
 
-    if (!content) {
-      throw new Error('AI返回内容为空');
-    }
+    // Ensure score is clamped
+    evaluation.score = Math.max(0, Math.min(100, Math.round(evaluation.score)));
 
-    // 解析JSON响应
-    const result = JSON.parse(content);
-
-    return NextResponse.json(result);
-  } catch (error) {
-    console.error('评估错误:', error);
+    return NextResponse.json({ evaluation });
+  } catch (err) {
+    console.error('Evaluate error:', err);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : '评估失败，请重试' },
-      { status: 500 }
+      { error: 'Failed to evaluate text. Please try again.' },
+      { status: 500 },
     );
   }
 }
