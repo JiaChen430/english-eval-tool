@@ -60,6 +60,13 @@ npm run dev
 2. 添加环境变量 `OPENROUTER_API_KEY`
 3. 部署
 
+> ⚠️ **部署注意**: 因为 Vercel 权限限制，部署时需要将 commit author 改为你的 GitHub 账号：
+> ```bash
+> git commit --amend --author="JiaChen430 <jiachen430@gmail.com>" --no-edit
+> git push --force origin main
+> ```
+> 然后运行 `npx vercel --prod`
+
 ## 使用说明
 
 1. 在文本框输入你的英文表达
