@@ -82,21 +82,16 @@ Return ONLY valid JSON.`;
       ? JSON.parse(jsonMatch[0]) 
       : [];
 
-    // Add search URL as fallback option
+    // Add search URL as first and primary option (always works)
     const searchRecommendation: VideoRecommendation = {
-      title: `Search: "${corrected}"`,
+      title: `🔍 Search YouTube: "${corrected}"`,
       channel: 'YouTube Search',
       url: searchUrl,
-      reason: `Search for videos teaching: "${corrected}"`,
+      reason: `Search for videos teaching: "${corrected}" - guaranteed to work!`,
     };
 
-    // If no valid recommendations, at least show search
-    if (recommendations.length === 0) {
-      recommendations = [searchRecommendation];
-    } else {
-      // Add search as last option
-      recommendations.push(searchRecommendation);
-    }
+    // Put search first, then AI recommendations
+    recommendations = [searchRecommendation, ...recommendations];
 
     return NextResponse.json({ recommendations });
   } catch (err) {
