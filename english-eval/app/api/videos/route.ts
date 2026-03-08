@@ -17,6 +17,7 @@ interface VideoRecommendation {
   channel: string;
   url: string;
   reason: string;
+  searchUrl?: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -27,35 +28,35 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Error details required.' }, { status: 400 });
     }
 
-    const prompt = `Based on the following English learning error, recommend 2-3 specific YouTube videos that would help learn the correct usage.
+    // Always include a YouTube search URL for the corrected expression
+    const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(corrected + ' American English')}`;
+
+    const prompt = `Based on the following English learning error, recommend 3 specific YouTube video titles and channels that would help learn the correct usage.
 
 Error: "${error}"
 Corrected: "${corrected}"
 Explanation: "${explanation}"
 
-Search for videos teaching:
-- The correct expression: "${corrected}"
-- Related natural American English phrases
-- Common mistakes Chinese speakers make with this topic
-
-Return ONLY a JSON array (no markdown) with up to 3 recommendations:
+Return ONLY a JSON array (no markdown) with 3 recommendations:
 [
   {
-    "title": "Exact video title",
+    "title": "Specific video title about this topic",
     "channel": "Channel name",
-    "url": "https://youtube.com/watch?v=...",
+    "url": "https://www.youtube.com/watch?v=EXACT_VIDEO_ID",
     "reason": "Why this video helps"
   }
 ]
 
-Choose from these trusted channels:
-${CHANNELS.map(c => `- ${c.name}: ${c.url}`).join('\n')}
+IMPORTANT: Only provide URLs with EXACT real YouTube video IDs that you are CONFIDENT exist and are available. 
+- If unsure about a specific video ID, use the search URL instead: ${searchUrl}
+- Prefer videos from these trusted channels: Rachel's English, Go Natural English, Speak English With Vanessa, Interactive English, EnglishClass101
+- You can search on YouTube to find real video IDs
 
-If you can't find specific videos, suggest general topics like "American English expressions for [topic]" and provide search URLs like:
-- https://www.youtube.com/results?search_query=learn+American+English+${encodeURIComponent(corrected)}
-- https://www.youtube.com/shorts/${encodeURIComponent(corrected.slice(0, 30))}
+If you cannot find reliable specific videos, return an empty array and the searchUrl will be used instead.
 
 Return ONLY valid JSON.`;
+
+    const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(corrected + ' American English')}`;
 
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -79,9 +80,25 @@ Return ONLY valid JSON.`;
 
     // Extract JSON from response
     const jsonMatch = content.match(/\[[\s\S]*\]/);
-    const recommendations: VideoRecommendation[] = jsonMatch 
+    let recommendations: VideoRecommendation[] = jsonMatch 
       ? JSON.parse(jsonMatch[0]) 
       : [];
+
+    // Add search URL as fallback option
+    const searchRecommendation: VideoRecommendation = {
+      title: `Search: "${corrected}"`,
+      channel: 'YouTube Search',
+      url: searchUrl,
+      reason: `Search for videos teaching: "${corrected}"`,
+    };
+
+    // If no valid recommendations, at least show search
+    if (recommendations.length === 0) {
+      recommendations = [searchRecommendation];
+    } else {
+      // Add search as last option
+      recommendations.push(searchRecommendation);
+    }
 
     return NextResponse.json({ recommendations });
   } catch (err) {

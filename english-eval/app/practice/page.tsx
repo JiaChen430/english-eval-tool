@@ -79,7 +79,7 @@ function VideoButton({
               rel="noopener noreferrer"
               className="flex items-start gap-3 p-3 bg-white border border-red-100 rounded-lg hover:border-red-200 hover:shadow-sm transition-all"
             >
-              <span className="text-xl">▶️</span>
+              <span className="text-xl">{vid.channel === 'YouTube Search' ? '🔍' : '▶️'}</span>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-slate-800 truncate">{vid.title}</p>
                 <p className="text-xs text-slate-500">{vid.channel}</p>
