@@ -17,7 +17,8 @@ async function validateVideoId(videoId: string): Promise<boolean> {
   
   try {
     const res = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet&key=${YOUTUBE_API_KEY}`
+      `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet&key=${YOUTUBE_API_KEY}`,
+      { headers: { 'Referer': 'https://english-eval.vercel.app/' } }
     );
     const data = await res.json();
     return data.items && data.items.length > 0;
@@ -121,7 +122,8 @@ Return ONLY valid JSON.`;
       const videoIds = validVideos.map(v => extractVideoId(v.url)).filter(Boolean).join(',');
       try {
         const ytRes = await fetch(
-          `https://www.googleapis.com/youtube/v3/videos?id=${videoIds}&part=snippet&key=${YOUTUBE_API_KEY}`
+          `https://www.googleapis.com/youtube/v3/videos?id=${videoIds}&part=snippet&key=${YOUTUBE_API_KEY}`,
+          { headers: { 'Referer': 'https://english-eval.vercel.app/' } }
         );
         const ytData = await ytRes.json();
         
