@@ -1,20 +1,23 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Navigation from '@/components/Navigation';
+import NicknameModal from '@/components/NicknameModal';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "English Eval - 英文表达训练",
-  description: "提升英文口语和写作能力的智能练习工具",
+  title: 'English Eval — AI-powered English expression evaluator',
+  description: 'Evaluate your English writing, practice targeted exercises, and track your progress.',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN">
-      <body className="antialiased">
-        {children}
+    <html lang="en">
+      <body className={inter.className}>
+        <Navigation />
+        <NicknameModal />
+        <main className="min-h-screen pt-16 pb-12">{children}</main>
       </body>
     </html>
   );

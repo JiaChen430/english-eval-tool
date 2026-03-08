@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { EvaluationResult, ExerciseItem, ErrorCategory } from '@/lib/types';
+import { EvaluationResult, ExerciseItem, ErrorCategory, Scenario, SCENARIO_LABELS } from '@/lib/types';
 
 const CATEGORY_STYLES: Record<ErrorCategory, { label: string; bg: string; text: string; border: string }> = {
   grammar: { label: 'Grammar', bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
@@ -35,6 +35,7 @@ function scoreLabel(score: number) {
 
 export default function HomePage() {
   const [inputText, setInputText] = useState('');
+  const [scenario, setScenario] = useState<Scenario>('casual');
   const [isLoading, setIsLoading] = useState(false);
   const [evaluation, setEvaluation] = useState<EvaluationResult | null>(null);
   const [exercises, setExercises] = useState<ExerciseItem[]>([]);
@@ -51,7 +52,7 @@ export default function HomePage() {
       const res = await fetch('/api/evaluate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: inputText }),
+        body: JSON.stringify({ text: inputText, scenario }),
       });
 
       if (!res.ok) {
@@ -112,6 +113,28 @@ export default function HomePage() {
             placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400
             focus:border-transparent resize-y text-sm leading-relaxed"
         />
+        
+        {/* Scenario selector */}
+        <div className="flex flex-wrap items-center gap-4 mt-4 pt-4 border-t border-slate-100">
+          <span className="text-sm font-medium text-slate-700">场景:</span>
+          <div className="flex gap-2">
+            {(Object.keys(SCENARIO_LABELS) as Scenario[]).map((s) => (
+              <button
+                key={s}
+                onClick={() => setScenario(s)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  scenario === s
+                    ? 'bg-indigo-600 text-white shadow-md'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+              >
+                {SCENARIO_LABELS[s].label}
+              </button>
+            ))}
+          </div>
+          <span className="text-xs text-slate-400 ml-auto">{SCENARIO_LABELS[scenario].description}</span>
+        </div>
+        
         <div className="flex items-center justify-between mt-3">
           <span className="text-xs text-slate-400">{inputText.length} / 5000 characters</span>
           <button
