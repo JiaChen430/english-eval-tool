@@ -56,8 +56,6 @@ If you cannot find reliable specific videos, return an empty array and the searc
 
 Return ONLY valid JSON.`;
 
-    const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(corrected + ' American English')}`;
-
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
