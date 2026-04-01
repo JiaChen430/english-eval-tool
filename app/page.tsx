@@ -117,20 +117,48 @@ export default function HomePage() {
         {/* Scenario selector */}
         <div className="flex flex-wrap items-center gap-4 mt-4 pt-4 border-t border-slate-100">
           <span className="text-sm font-medium text-slate-700">场景:</span>
-          <div className="flex gap-2">
-            {(Object.keys(SCENARIO_LABELS) as Scenario[]).map((s) => (
-              <button
-                key={s}
-                onClick={() => setScenario(s)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                  scenario === s
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {SCENARIO_LABELS[s].label}
-              </button>
-            ))}
+          <div className="flex items-center gap-2">
+            {/* Casual */}
+            <button
+              onClick={() => setScenario('casual')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                scenario === 'casual'
+                  ? 'bg-indigo-600 text-white shadow-md'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              口语闲聊
+            </button>
+
+            {/* Email group */}
+            <div className="flex items-center gap-0.5 bg-slate-100 rounded-lg p-0.5">
+              <span className="text-xs text-slate-500 px-2">邮件</span>
+              {(['email-urgent', 'email-formal', 'email-natural'] as Scenario[]).map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setScenario(s)}
+                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                    scenario === s
+                      ? 'bg-indigo-600 text-white shadow-md'
+                      : 'text-slate-600 hover:bg-slate-200'
+                  }`}
+                >
+                  {SCENARIO_LABELS[s].label}
+                </button>
+              ))}
+            </div>
+
+            {/* Meeting */}
+            <button
+              onClick={() => setScenario('meeting')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                scenario === 'meeting'
+                  ? 'bg-indigo-600 text-white shadow-md'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              会议表达
+            </button>
           </div>
           <span className="text-xs text-slate-400 ml-auto">{SCENARIO_LABELS[scenario].description}</span>
         </div>
@@ -187,6 +215,17 @@ export default function HomePage() {
               <span>{evaluation.errors.length} issue{evaluation.errors.length !== 1 ? 's' : ''} found</span>
             </div>
           </div>
+
+          {/* Suggested Subject */}
+          {evaluation.suggestedSubject && (
+            <div className="card p-6">
+              <h2 className="text-lg font-semibold text-slate-800 mb-3">Suggested Subject Line</h2>
+              <div className="flex items-center gap-3 bg-indigo-50 rounded-lg p-4 border border-indigo-100">
+                <span className="text-xs font-medium text-indigo-500 uppercase tracking-wide shrink-0">Subject:</span>
+                <span className="text-indigo-800 font-medium text-sm">{evaluation.suggestedSubject}</span>
+              </div>
+            </div>
+          )}
 
           {/* Corrected text */}
           {evaluation.correctedText && (
