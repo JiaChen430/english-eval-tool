@@ -17,17 +17,42 @@ const SCENARIO_GUIDELINES: Record<Scenario, string> = {
 - 简洁直接的表达
 - 自然的对话语气`,
 
-  business: `## Scenario: Business Email (商务邮件)
-- 评估标准：专业、清晰、有礼貌
-- 鼓励使用：完整词汇 (cannot instead of can't)、正式开场/结尾、清晰结构
-- 避免：俚语、表情符号、过短的句子
-- 示例："Just a quick note to let you know" ✓ "Just letting you know" ✗ (太随意)
+  'email-urgent': `## Scenario: Urgent Email (紧急邮件)
+- 评估标准：简洁直接、有紧迫感、North American phrasing
+- 鼓励使用：短句、直接的请求、明确的 deadline 或 action item
+- 避免：冗长客套、模糊措辞、不必要的背景铺垫
+- 示例："We need this resolved by EOD" ✓ "I was wondering if perhaps we could address this matter" ✗ (太啰嗦)
 
 ## 重点关注：
-- 正式词汇选择
-- 专业的开场和结尾
-- 清晰的消息结构
+- 开头直接说明紧急事项
+- 明确的行动要求和时间节点
+- 简洁有力的 North American 表达
+- 保持礼貌但不过度客气`,
+
+  'email-formal': `## Scenario: Formal Email (正式邮件)
+- 评估标准：专业、清晰、有礼貌、完整的句式结构
+- 鼓励使用：完整词汇 (cannot instead of can't)、正式开场/结尾、清晰结构
+- 避免：俚语、缩写、表情符号、过短的句子
+- 示例："I am writing to inform you that..." ✓ "Just letting you know" ✗ (太随意)
+
+## 重点关注：
+- 正式词汇选择 (North American business English)
+- 专业的开场和结尾 (Dear/Sincerely)
+- 清晰的消息结构 (purpose → details → closing)
 - 适当的礼貌用语`,
+
+  'email-natural': `## Scenario: Natural/Everyday Email (日常邮件)
+- 评估标准：自然简洁、友好但不随便、North American daily email style
+- 鼓励使用：自然的缩写 (I'm, don't)、简洁直接的表达、适度的礼貌
+- 避免：过度正式 ("I am writing as the tenant residing in...")、不必要的冗词、生硬的措辞
+- 示例："I'm a tenant in Unit 2808" ✓ "I am writing as the tenant residing in Unit 2808" ✗ (太正式)
+- 示例："Could you please send us a copy?" ✓ "Could you please provide us with one?" ✗ (太正式)
+
+## 重点关注：
+- 像 native speaker 写日常邮件一样自然
+- 合并可以合并的短句，避免不必要的换行
+- 用简洁直接的表达替代正式冗长的说法
+- 保持友好、自然的语气`,
 
   meeting: `## Scenario: Meeting Expression (会议表达)
 - 评估标准：清晰、逻辑性强、专业
@@ -52,6 +77,8 @@ function extractJSON(text: string): string {
   return text.trim();
 }
 
+const isEmailScenario = (scenario: Scenario) => scenario.startsWith('email-');
+
 const EVAL_PROMPT = (text: string, scenario: Scenario) => `You are an expert English language evaluator specializing in helping Chinese speakers improve their English to sound more NATURAL and like a native North American speaker. Evaluate the following English text and return ONLY a JSON object — no markdown, no commentary.
 
 ${SCENARIO_GUIDELINES[scenario]}
@@ -61,17 +88,21 @@ Text to evaluate:
 ${text}
 """
 
-IMPORTANT: 
+IMPORTANT:
 - Your PRIMARY focus should be on NATURALNESS - even if grammar is correct, suggest more natural expressions that Americans would actually use.
+- ALL suggestions must use North American phrasing and conventions.
 - Apply the scenario-specific guidelines above.
 - For casual: accept and encourage colloquial expressions
-- For business: ensure professional tone and complete sentences
+- For email-urgent: prioritize brevity and directness
+- For email-formal: ensure professional tone and complete sentences
+- For email-natural: make it sound like a real North American person writing a normal email — not too formal, not too casual
 - For meeting: ensure clarity and logical structure
 
 Return this exact JSON structure:
 {
   "score": <integer 0–100>,
-  "correctedText": "<full corrected version - make it sound NATURAL and appropriate for the selected scenario>",
+  "correctedText": "<full corrected version - make it sound NATURAL and appropriate for the selected scenario>",${isEmailScenario(scenario) ? `
+  "suggestedSubject": "<a concise, natural email subject line based on the content — use North American email conventions>",` : ''}
   "errors": [
     {
       "id": "err1",
@@ -94,9 +125,18 @@ Scenario-specific examples:
 - "For the payment of March" → "the March payment" or "take care of the March payment"
 - "I am going to" → "I'm gonna" (natural in casual)
 
-**Business:**
-- "Just letting you know" → "Just a quick note to let you know" (more professional)
-- "gonna" → "going to" (more formal)
+**Email - Urgent:**
+- "I wanted to reach out regarding..." → "Quick question about..." or "Need your help with..."
+- "At your earliest convenience" → "by EOD" or "ASAP"
+
+**Email - Formal:**
+- "Just letting you know" → "I am writing to inform you" (more professional)
+- "gonna" → "going to" (formal)
+
+**Email - Natural:**
+- "I am writing as the tenant residing in Unit 2808" → "I'm a tenant in Unit 2808" (natural, not overly formal)
+- "Could you please provide us with one?" → "Could you please send us a copy?" (simpler, more natural)
+- "My family and I have not yet received the Vehicle Registration form." → combine into flowing sentence
 
 **Meeting:**
 - "pay it" → "take care of it" or "process the payment"
@@ -145,8 +185,9 @@ export async function POST(req: NextRequest) {
     const { text, scenario = 'casual' } = await req.json();
 
     // Validate scenario
-    if (!['casual', 'business', 'meeting'].includes(scenario)) {
-      return NextResponse.json({ error: 'Invalid scenario. Use casual, business, or meeting.' }, { status: 400 });
+    const validScenarios = ['casual', 'email-urgent', 'email-formal', 'email-natural', 'meeting'];
+    if (!validScenarios.includes(scenario)) {
+      return NextResponse.json({ error: `Invalid scenario. Use one of: ${validScenarios.join(', ')}` }, { status: 400 });
     }
 
     if (!text || typeof text !== 'string' || text.trim().length === 0) {

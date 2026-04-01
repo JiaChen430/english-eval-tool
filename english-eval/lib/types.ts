@@ -1,10 +1,12 @@
-export type Scenario = 'casual' | 'business' | 'meeting';
+export type Scenario = 'casual' | 'email-urgent' | 'email-formal' | 'email-natural' | 'meeting';
 
 export type ErrorCategory = 'grammar' | 'vocabulary' | 'naturalness' | 'punctuation';
 
-export const SCENARIO_LABELS: Record<Scenario, { label: string; description: string }> = {
+export const SCENARIO_LABELS: Record<Scenario, { label: string; description: string; group?: string }> = {
   casual: { label: '口语闲聊', description: '日常聊天，更口语化' },
-  business: { label: '商务邮件', description: '正式书面，表达专业' },
+  'email-urgent': { label: 'Urgent', description: '紧急邮件，简洁直接，有紧迫感', group: 'email' },
+  'email-formal': { label: 'Formal', description: '正式邮件，专业措辞，完整句式', group: 'email' },
+  'email-natural': { label: 'Natural', description: '日常邮件，自然简洁，不过度正式', group: 'email' },
   meeting: { label: '会议表达', description: '清晰陈述，逻辑性强' },
 };
 
@@ -20,6 +22,7 @@ export interface EvaluationResult {
   score: number;
   correctedText: string;
   errors: TextError[];
+  suggestedSubject?: string;
 }
 
 export type ExerciseType = 'fill-in-blank' | 'multiple-choice';
